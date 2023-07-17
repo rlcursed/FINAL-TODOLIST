@@ -1,37 +1,55 @@
 import React from 'react';
+
+import Main from './MainFolder/Main';
+
+import ActionGroups from './ActionGroups/ActionGroups';
+
+import Count from './CountFolder/Count';
+
+import TodoList from './TodoListFolder/TodoList';
+
 import AppLogic from './AppLogic';
-import ButtonGroup from './ButtonsFolder/ButtonGroup';
-import { TimerGlobalContainer } from './TimerContainerStyle';
-import Display from './DisplayFolder/Display';
+
+import { AppGlobalContainer } from './TimerContainerStyle';
 
 const TimerContainer = () => {
     const {
-        updatedM,
-        updatedS,
-        updatedMs,
-        status,
-        handleStart,
-        handlePause,
-        handleContinue,
-        handleReset
+        todos,
+        addTodo,
+        value,
+        handleChange,
+        DeleteTodo,
+        handleKeyDown,
+        inputRef,
+        toogleTodo,
+        count,
+        editTodo,
+        edit
     } = AppLogic();
 
     return (
-        <TimerGlobalContainer>
-            <Display
-            minutes={updatedM}
-            seconds={updatedS}
-            mseconds={updatedMs}
+        <AppGlobalContainer>
+            <Count
+            count={count}
             />
-            <ButtonGroup
-            status={status}
-            handleStart={handleStart}
-            handlePause={handlePause}
-            handleContinue={handleContinue}
-            handleReset={handleReset}
-
+            <Main
+            addTodo={addTodo}
+            value={value}
+            handleChange={handleChange}
+            handleKeyDown={handleKeyDown}
+            inputRef={inputRef}
             />
-        </TimerGlobalContainer>
+            <ActionGroups
+            addTodo={addTodo}
+            />
+            <TodoList
+            editTodo={editTodo}
+            edit={edit}
+            todos={todos}
+            DeleteTodo={DeleteTodo}
+            toogleTodo={toogleTodo}
+            />
+        </AppGlobalContainer>
     )
 }
 
