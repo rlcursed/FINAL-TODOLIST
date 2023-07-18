@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 import Main from './MainFolder/Main';
 
@@ -24,14 +24,22 @@ const TimerContainer = () => {
         toogleTodo,
         count,
         editTodo,
-        edit
+        edit,
+        titleValue,
+        handleTitleChange,
+        saveTodo,
+        todoFiltered,
+        filtered
     } = AppLogic();
 
     return (
         <AppGlobalContainer>
+            <div>
             <Count
             count={count}
             />
+            </div>
+            <div>
             <Main
             addTodo={addTodo}
             value={value}
@@ -39,18 +47,28 @@ const TimerContainer = () => {
             handleKeyDown={handleKeyDown}
             inputRef={inputRef}
             />
+            </div>
+            <div>
             <ActionGroups
             addTodo={addTodo}
+            todoFiltered={todoFiltered}
             />
+            </div>
+            <div>
             <TodoList
             editTodo={editTodo}
             edit={edit}
             todos={todos}
             DeleteTodo={DeleteTodo}
             toogleTodo={toogleTodo}
+            titleValue={titleValue}
+            handleTitleChange={handleTitleChange}
+            saveTodo={saveTodo}
+            filtered={filtered}
             />
+            </div>
         </AppGlobalContainer>
     )
 }
 
-export default TimerContainer;
+export default memo(TimerContainer);

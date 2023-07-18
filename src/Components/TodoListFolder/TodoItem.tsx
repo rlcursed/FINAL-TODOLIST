@@ -1,32 +1,37 @@
-import React from 'react';
+import React, {FC,memo} from 'react';
 
 import Button from '../ButtonsFolder/Button';
 
-import { TodoItemContainer } from './TodoListStyle';
+import { TodoItemContainer, ButtonContainer } from './TodoListStyle';
 
 import { ITodo } from '../../data/data';
 
 interface TodoItemProps extends ITodo {
-    DeleteTodo:(id: number) => void;
-    toogleTodo:(id: number) => void;
-    editTodo:(id: number) => void;
-    edit: null | number | boolean;
+    DeleteTodo:(id: string) => void;
+    toogleTodo:(id: string) => void;
+    editTodo:(id: string, title: string) => void;
+    edit: null | string | boolean;
+    titleValue: string;
+    handleTitleChange:(e: React.ChangeEvent<HTMLInputElement>) => void;
+    saveTodo:(id: string) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({DeleteTodo, toogleTodo, title, id, completed,editTodo, edit}) => {
+const TodoItem: FC<TodoItemProps> = ({DeleteTodo, toogleTodo, title, id, completed,editTodo, edit, titleValue, handleTitleChange,saveTodo}) => {
     return (
         <>
-            {edit === id?
+            {edit === id ?
             <TodoItemContainer>
-            <input type='text'/> 
-            <Button onClick={() => editTodo(id)} title='Save'></Button>
+            <input type='text' value={titleValue} onChange={handleTitleChange}/> 
+            <Button onClick={() => saveTodo(id)} title='Save'></Button>
             </TodoItemContainer>
             :
             <TodoItemContainer>
             <input type='checkbox' checked={completed} onChange={() => toogleTodo(id)}/>
             {title}
-            <Button onClick={() => DeleteTodo(id)} title='Delete'></Button>
-            <Button onClick={() => editTodo(id)} title='Edit'></Button>
+            <ButtonContainer>
+                <Button onClick={() => DeleteTodo(id)} title='Delete'></Button>
+                <Button onClick={() => editTodo(id, titleValue)} title='Edit'></Button>
+            </ButtonContainer>
             </TodoItemContainer>
             }
             
@@ -34,4 +39,4 @@ const TodoItem: React.FC<TodoItemProps> = ({DeleteTodo, toogleTodo, title, id, c
     )
 }
 
-export default TodoItem;
+export default memo(TodoItem);

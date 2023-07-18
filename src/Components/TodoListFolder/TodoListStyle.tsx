@@ -26,3 +26,11 @@ export const TodoItemButton = styled.button`
     font-size: 30px;
     border-radius:20px;
 `
+
+export const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 150px;
+`

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC,memo} from 'react';
 
 import { ITodo } from '../../data/data';
 
@@ -8,23 +8,30 @@ import { TodoListStyleContainer } from './TodoListStyle';
 
 interface TodoListProps {
     todos: ITodo[];
-    DeleteTodo:(id: number) => void;
-    toogleTodo:(id: number) => void;
-    editTodo:(id: number) => void;
-    edit: null | number | boolean;
+    DeleteTodo:(id: string) => void;
+    toogleTodo:(id: string) => void;
+    editTodo:(id: string, title: string) => void;
+    edit: null | string | boolean;
+    titleValue: string;
+    handleTitleChange:(e: React.ChangeEvent<HTMLInputElement>) => void;
+    saveTodo:(id: string) => void;
+    filtered: ITodo[];
 }
 
-const TodoList: React.FC<TodoListProps> = ({todos, DeleteTodo, toogleTodo,editTodo, edit}) => {
+const TodoList: FC<TodoListProps> = ({filtered, todos, DeleteTodo, toogleTodo,editTodo, edit, titleValue, handleTitleChange, saveTodo}) => {
     return (
         <TodoListStyleContainer>
             {
-                todos.map(todo => {
+                filtered.map(todo => {
                      return <TodoItem
+                        handleTitleChange={handleTitleChange}
                         editTodo={editTodo}
                         edit={edit}
                         key={todo.id}
                         DeleteTodo={DeleteTodo}
                         toogleTodo={toogleTodo}
+                        titleValue={titleValue}
+                        saveTodo={saveTodo}
                         {...todo}
                     />
                 })
@@ -33,4 +40,4 @@ const TodoList: React.FC<TodoListProps> = ({todos, DeleteTodo, toogleTodo,editTo
     )
 }
 
-export default TodoList;
+export default memo(TodoList);

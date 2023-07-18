@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC,memo} from 'react';
 
 import Button from '../ButtonsFolder/Button';
 
@@ -12,7 +12,7 @@ interface MainProps {
     inputRef: any;
 }
 
-const Main: React.FC<MainProps> = ({addTodo, value, handleChange, handleKeyDown, inputRef}) => {
+const Main: FC<MainProps> = ({addTodo, value, handleChange, handleKeyDown, inputRef}) => {
     return(
         <MainContainer>
             <MainInput value={value} onChange={handleChange} onKeyDown={handleKeyDown} ref={inputRef}/>
@@ -21,4 +21,4 @@ const Main: React.FC<MainProps> = ({addTodo, value, handleChange, handleKeyDown,
     )
 }
 
-export default Main;
+export default memo(Main);

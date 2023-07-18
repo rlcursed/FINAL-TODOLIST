@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC, memo}  from 'react';
 
 import { ActionGroupButton } from './ActionGroupsStyle';
 
@@ -7,10 +7,10 @@ interface ItemsProps {
     title: string;
 }
 
-const ActionGroupsItem: React.FC<ItemsProps> = ({onClick, title}) => {
+const ActionGroupsItem: FC<ItemsProps> = ({onClick, title}) => {
     return (
         <ActionGroupButton onClick={onClick}>{title}</ActionGroupButton>
     )
 }
 
-export default ActionGroupsItem;
+export default memo(ActionGroupsItem);

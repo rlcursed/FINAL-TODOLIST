@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC,memo}  from 'react';
 
 import { MainButton } from './ButtonStyle';
 
@@ -7,10 +7,10 @@ interface ButtonProps {
     title: string;
 }
 
-const Button: React.FC<ButtonProps> = ({onClick, title}) => {
+const Button: FC<ButtonProps> = ({onClick, title}) => {
     return(
         <MainButton onClick={onClick}>{title}</MainButton>
     )
 }
 
-export default Button;
+export default memo(Button);

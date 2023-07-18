@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC,memo}  from 'react';
 
 import { CountContainer } from './CountStyles';
 
@@ -6,12 +6,12 @@ interface CountProps {
     count: number;
 }
 
-const Count: React.FC<CountProps> = ({count}) => {
+const Count: FC<CountProps> = ({count}) => {
     return (
         <CountContainer>
-            <span>{count === 1 ? count + " " + "task is active" : count + " " + "tasks is active"}</span>
+            <span>{count === 1 ? count + " task is active" : count + " tasks is active"}</span>
         </CountContainer>
     )
 }
 
-export default Count;
+export default memo(Count);
