@@ -6,38 +6,30 @@ import { ITodo } from "../data/data";
 
 const AppLogic = () => {
     const [todos, setTodos] = useState<ITodo[]>([]);
-    const [value, setValue] = useState("");
-    const [count, setCount] = useState(0);
     const [edit, setEdit] = useState<null | string | boolean>(null);
     const [titleValue, setTitleValue] = useState("");
     const [filtered, setFiltered] = useState(todos)
 
-    const inputRef = useRef<HTMLInputElement>(null)
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
         setFiltered(todos)
     }, [todos])
 
     const addTodo = useCallback(() => {
-        if(value){
-            setCount(count + 1)
+        if(inputRef.current){
             setTodos([...todos, {
                 id: uuidv4(),
-                title: value,
+                title: inputRef.current.value,
                 completed: false
         }])
+        inputRef.current.value = ""
     }
-        setValue("")
-    }, [count, todos, value]);
+    }, [todos])
 
     const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
         if(e.key === "Enter") addTodo();
     }, [addTodo]);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = e.target.value;
-        setValue(newValue);
-    };
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newTitleValue = e.target.value;
@@ -45,9 +37,8 @@ const AppLogic = () => {
     };
 
     const DeleteTodo = useCallback((id: string) => {
-        setCount(count - 1)
         setTodos(todos.filter(todo => todo.id !== id))
-    }, [count, todos]);
+    }, [todos]);
 
     const toogleTodo = useCallback((id: string) => {
         setTodos(todos.map(todo => {
@@ -62,8 +53,7 @@ const AppLogic = () => {
 
     const editTodo = useCallback((id: string, title: string) => {
         setEdit(id)
-        setTitleValue(value)
-    }, [value])
+    }, [])
 
     const saveTodo = useCallback((id: string) => {
         let newTodo = [...todos].map((item) => {
@@ -94,13 +84,10 @@ const AppLogic = () => {
         {
             todos, 
             addTodo,
-            value,
-            handleChange,
             DeleteTodo,
             handleKeyDown,
             inputRef,
             toogleTodo,
-            count,
             editTodo,
             edit,
             titleValue,

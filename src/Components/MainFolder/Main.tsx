@@ -6,16 +6,14 @@ import { MainContainer, MainInput } from './MainStyles';
 
 interface MainProps {
     addTodo:() => void;
-    value: string;
-    handleChange:(e: React.ChangeEvent<HTMLInputElement>) => void;
     handleKeyDown:(e: React.KeyboardEvent<HTMLInputElement>) => void;
-    inputRef: any;
+    inputRef: any ;
 }
 
-const Main: FC<MainProps> = ({addTodo, value, handleChange, handleKeyDown, inputRef}) => {
+const Main: FC<MainProps> = ({addTodo, handleKeyDown, inputRef}) => {
     return(
         <MainContainer>
-            <MainInput value={value} onChange={handleChange} onKeyDown={handleKeyDown} ref={inputRef}/>
+            <MainInput onKeyDown={handleKeyDown} ref={inputRef}/>
             <Button onClick={addTodo} title='ADD'></Button>
         </MainContainer>
     )

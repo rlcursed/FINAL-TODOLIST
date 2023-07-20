@@ -4,8 +4,6 @@ import Main from './MainFolder/Main';
 
 import ActionGroups from './ActionGroups/ActionGroups';
 
-import Count from './CountFolder/Count';
-
 import TodoList from './TodoListFolder/TodoList';
 
 import AppLogic from './AppLogic';
@@ -16,13 +14,10 @@ const TimerContainer = () => {
     const {
         todos,
         addTodo,
-        value,
-        handleChange,
         DeleteTodo,
         handleKeyDown,
         inputRef,
         toogleTodo,
-        count,
         editTodo,
         edit,
         titleValue,
@@ -35,15 +30,11 @@ const TimerContainer = () => {
     return (
         <AppGlobalContainer>
             <div>
-            <Count
-            count={count}
-            />
+            <h1>{todos.length === 1 ? todos.length + " task is active" : todos.length + " tasks is active"}</h1>
             </div>
             <div>
             <Main
             addTodo={addTodo}
-            value={value}
-            handleChange={handleChange}
             handleKeyDown={handleKeyDown}
             inputRef={inputRef}
             />
